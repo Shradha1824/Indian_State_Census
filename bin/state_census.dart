@@ -44,7 +44,7 @@ class StateCensusAnalyser {
         print('AreainSqkm: $AreaInSqKm');
         print('DensityPerSqKm: $DensityPerSqKm\n\n');
       }, onDone: () {
-        print('File is now closed.');
+        print('File closed.');
       }, onError: (e) {
         print(e.toString());
       });
@@ -89,7 +89,7 @@ class CSVStates {
         print('TIN: $TIN');
         print('StateCode: $StateCode\n\n');
       }, onDone: () {
-        print('File is now closed.');
+        print('File closed.');
       }, onError: (e) {
         print(e.toString());
       });
