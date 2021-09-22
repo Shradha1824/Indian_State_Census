@@ -16,3 +16,4 @@ class StateCensusAnalyser {
     }, onDone: () => print(buffer.toString()), onError: (e) => print(e));
   }
 }
+
