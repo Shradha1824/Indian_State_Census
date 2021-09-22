@@ -4,6 +4,9 @@ import 'dart:io';
 void main(List<String> args) {
   var stateCensus = StateCensusAnalyser('', '', '', '');
   stateCensus.loadStateCensusData();
+
+  var csvState = CSVStates('', '', '', '');
+  csvState.loadCSVState();
 }
 
 class StateCensusAnalyser {
@@ -31,15 +34,15 @@ class StateCensusAnalyser {
           (String line) {
         List row = line.split(',');
 
-        String State = row[0];
-        String Population = row[1];
-        String AreaInSqKm = row[2];
-        String DensityPerSqKm = row[3];
+        State = row[0];
+        Population = row[1];
+        AreaInSqKm = row[2];
+        DensityPerSqKm = row[3];
 
         print('State: $State');
         print('Population: $Population');
         print('AreainSqkm: $AreaInSqKm');
-        print('DensityPerSqKm: $DensityPerSqKm');
+        print('DensityPerSqKm: $DensityPerSqKm\n\n');
       }, onDone: () {
         print('File is now closed.');
       }, onError: (e) {
@@ -48,5 +51,48 @@ class StateCensusAnalyser {
     } catch (e) {
       throw Exception();
     }
+  }
+}
+
+class CSVStates {
+  String SrNo;
+  String StateName;
+  String TIN;
+  String StateCode;
+
+  CSVStates(this.SrNo, this.StateName, this.TIN, this.StateCode);
+
+  CSVStates.fromList(List<String> cols)
+      : this(cols[0], cols[1], cols[2], cols[3]);
+
+  @override
+  String toString() {
+    return 'CSVStates{SrNo: $SrNo, StateName: $StateName, TIN: $TIN, StateCode: $StateCode}';
+  }
+
+  void loadCSVState() {
+    try {
+      final file = File('StateCode.csv');
+
+      Stream<List> inputStream = file.openRead();
+      inputStream.transform(utf8.decoder).transform(LineSplitter()).listen(
+          (String line) {
+        List row = line.split(',');
+
+        SrNo = row[0];
+        StateName = row[1];
+        TIN = row[2];
+        StateCode = row[3];
+
+        print('SrNo: $SrNo');
+        print('StateName: $StateName');
+        print('TIN: $TIN');
+        print('StateCode: $StateCode\n\n');
+      }, onDone: () {
+        print('File is now closed.');
+      }, onError: (e) {
+        print(e.toString());
+      });
+    } catch (e) {}
   }
 }
